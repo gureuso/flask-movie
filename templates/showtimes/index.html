@@ -20,17 +20,16 @@
     </ul>
     <div class="tab-content">
       {% for week in week_list %}
-        {% if week['date'] == date %}
-          <div class="tab-pane fade show active" id="{{ week['weekday'] }}">
-            <ul class="list-group list-group-flush">
-              {% for movie in movies %}
-                <li class="list-group-item">
-                  {{ movie.title }} / {{ movie.director }} / {{ movie.age_rating }}세 이상 관람가
-                </li>
-                {% for showtime in movie.showtimes %}
-                  {% set seat = showtime.theater.theater_tickets|length %}
+        <div class="tab-pane fade {% if week['date'] == date %}show active{% endif %}" id="{{ week['weekday'] }}">
+          <ul class="list-group list-group-flush">
+            {% for movie in movies %}
+              <li class="list-group-item">
+                {{ movie.title }} / {{ movie.director }} / {{ movie.age_rating }}세 이상 관람가
+              </li>
+              {% for showtime in movie.showtimes %}
+                {% if showtime.start_time.strftime('%Y-%m-%d') == week['date'] %}
                   {% if now < showtime.start_time %}
-                    {% if showtime.theater.seat - seat < 1 %}
+                    {% if showtime.theater.seat < 1 %}
                       <li class="list-group-item disabled">
                         <a class="text-black-50" href="{{ url_for('theaters.detail', theater_id=showtime.theater.id, showtime_id=showtime.id) }}">
                           {{ showtime.start_time.strftime('%H:%M') }} ~ {{ showtime.end_time.strftime('%H:%M') }} {{ showtime.theater.title }} 매진
@@ -39,7 +38,7 @@
                     {% else %}
                       <li class="list-group-item">
                         <a href="{{ url_for('theaters.detail', theater_id=showtime.theater.id, showtime_id=showtime.id) }}">
-                          {{ showtime.start_time.strftime('%H:%M') }} ~ {{ showtime.end_time.strftime('%H:%M') }} {{ showtime.theater.title }} {{ showtime.theater.seat - seat }}석
+                          {{ showtime.start_time.strftime('%H:%M') }} ~ {{ showtime.end_time.strftime('%H:%M') }} {{ showtime.theater.title }} {{ showtime.theater.seat }}석
                         </a>
                       </li>
                     {% endif %}
@@ -50,15 +49,11 @@
                       </a>
                     </li>
                   {% endif %}
-                {% endfor %}
+                {% endif %}
               {% endfor %}
-            </ul>
-          </div>
-        {% else %}
-          <div class="tab-pane fade" id="{{ week['weekday'] }}">
-            <p></p>
-          </div>
-        {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
       {% endfor %}
     </div>
   </div>

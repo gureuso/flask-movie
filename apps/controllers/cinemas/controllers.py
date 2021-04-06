@@ -10,8 +10,4 @@ app = Blueprint('cinemas', __name__, url_prefix='/cinemas')
 @app.route('', methods=['GET'])
 @signin_required
 def index():
-    data = request.args
-    movie_id = data.get('movie_id')
-
-    cinemas = Cinema.query.all()
-    return render_template('cinemas/index.html', cinemas=cinemas, movie_id=movie_id)
+    return ''
