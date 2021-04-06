@@ -9,8 +9,8 @@ RUN apt-get -y update
 RUN apt-get -y install python3-pip
 
 # flask
-RUN git clone https://github.com/gureuso/flask.git
-WORKDIR /root/flask
+WORKDIR /root/flask-movie
+COPY ./ /root/flask-movie
 RUN pip install virtualenv
 RUN virtualenv venv
 RUN . venv/bin/activate
