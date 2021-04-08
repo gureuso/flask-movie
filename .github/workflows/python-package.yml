@@ -28,16 +28,11 @@ jobs:
         virtualenv venv
         . venv/bin/activate
         pip install -r requirements.txt
-        echo -n '{"DB_NAME":' > tmp.json
-        echo -n '"'${{ secrets.DB_NAME }}'",' | sed 's/./& /g' >> tmp.json
-        echo -n '"DB_USER_PASSWD":' >> tmp.json
-        echo -n '"'${{ secrets.DB_USER_PASSWD }}'",' | sed 's/./& /g' >> tmp.json
-        echo -n '"DB_HOST":' >> tmp.json
-        echo -n '"'${{ secrets.DB_HOST }}'"' | sed 's/./& /g' >> tmp.json
-        echo -n '}' >> tmp.json
-        sed 's/ //g' tmp.json > config.json
-        rm -rf tmp.json
     - name: Create database and Run test
+      env:
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
+        DB_HOST: ${{ secrets.DB_HOST }}
       run: |
         python manage.py db upgrade
         python manage.py test
@@ -51,4 +46,5 @@ jobs:
         cat "[default]\naws_access_key_id=${{ secrets.AWS_ACCESS_KEY }}\naws_secret_access_key=${{ secrets.AWS_SECRET_KEY }}" > .aws/credentials
         cat "[default]\nregion=ap-northeast-2\noutput=json" > .aws/config
         eb init --region ap-northeast-2 --platform docker
+        eb setenv DB_NAME=${{ secrets.DB_NAME }} DB_USER_PASSWD=${{ secrets.DB_USER_PASSWD }} DB_HOST=${{ secrets.DB_HOST }}
         eb deploy $EB_ENV_NAME
