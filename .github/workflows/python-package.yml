@@ -33,7 +33,7 @@ jobs:
         echo -n '"DB_USER_PASSWD":"' >> config.json
         echo -n '"'${{ secrets.DB_USER_PASSWD }}'",' | sed 's/./& /g' >> config.json
         echo -n '"DB_HOST":"' >> config.json
-        echo -n '"'${{ secrets.DB_HOST }}'",' | sed 's/./& /g' >> config.json
+        echo -n '"'${{ secrets.DB_HOST }}'"' | sed 's/./& /g' >> config.json
         echo -n '}' >> config.json
     - name: Create database and Run test
       run: |
