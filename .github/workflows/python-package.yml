@@ -25,7 +25,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        cat "{'DB_NAME': '{{ secrets.DB_NAME }}','DB_USER_PASSWD': '{{ secrets.DB_USER_PASSWD }}','DB_HOST': '{{ secrets.DB_HOST }}'}" > config.json
+        echo '{"DB_NAME": "{{ secrets.DB_NAME }}","DB_USER_PASSWD": "{{ secrets.DB_USER_PASSWD }}","DB_HOST": "{{ secrets.DB_HOST }}"}' > config.json
     - name: Test
       run: |
         python manage.py test
