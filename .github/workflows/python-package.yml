@@ -1,0 +1,42 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python package
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install virtualenv
+        virtualenv venv
+        . venv/bin/activate
+        pip install -r requirements.txt
+        echo "{}" > config.json
+    - name: Deploy
+      env:
+        EB_ENV_NAME: Flaskmovie-env
+      run: |
+        pip install awsebcli
+        pip install awscli
+        mkdir .aws
+        cat "[default]\naws_access_key_id=${{ secrets.AWS_ACCESS_KEY }}\naws_secret_access_key=${{ secrets.AWS_SECRET_KEY }}" > .aws/credentials
+        cat "[default]\nregion=ap-northeast-2\noutput=json" > .aws/config
+        eb init --region ap-northeast-2 --platform docker
+        eb deploy $EB_ENV_NAME
