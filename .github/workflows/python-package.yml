@@ -30,11 +30,11 @@ jobs:
         pip install -r requirements.txt
         echo "{}" > config.json
     - name: Create database and Run test
+      env:
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
+        DB_HOST: ${{ secrets.DB_HOST }}
       run: |
-        env:
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
         python manage.py db upgrade
         python manage.py test
     - name: Deploy
