@@ -29,12 +29,14 @@ jobs:
         . venv/bin/activate
         pip install -r requirements.txt
         echo "{}" > config.json
-    - name: Test
+    - name: Create database and Run test
       run: |
-        python manage.py test
-    - name: DB
-      run: |
+        env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
         python manage.py db upgrade
+        python manage.py test
     - name: Deploy
       env:
         EB_ENV_NAME: Flaskmovie-env
