@@ -28,6 +28,7 @@ jobs:
         virtualenv venv
         . venv/bin/activate
         pip install -r requirements.txt
+        echo "{}" > config.json
     - name: Create database and Run test
       env:
         DB_NAME: ${{ secrets.DB_NAME }}
