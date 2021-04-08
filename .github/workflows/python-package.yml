@@ -32,7 +32,7 @@ jobs:
         virtualenv venv
         . venv/bin/activate
         pip install -r requirements.txt
-        echo '{"DB_NAME": "$DB_NAME","DB_USER_PASSWD": "$DB_USER_PASSWD","DB_HOST": "$DB_HOST"}' > config.json
+        echo '{"DB_NAME":'\"$DB_NAME\"',"DB_USER_PASSWD":'\"$DB_USER_PASSWD\"',"DB_HOST":'\"$DB_HOST\"'}' > config.json
     - name: Test
       run: |
         python manage.py test
