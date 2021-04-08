@@ -4,7 +4,7 @@ MAINTAINER gureuso <wyun13043@gmail.com>
 USER root
 WORKDIR /root
 
-# bse
+# base
 RUN apt-get -y update
 RUN apt-get -y install python3-pip
 

@@ -20,3 +20,11 @@ Thumbs.db
 # flask
 !migrations/versions/.keep
 config.json
+
+# git
+.git
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
