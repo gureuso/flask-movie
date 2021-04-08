@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup Hugo
-        uses: gureuso/py-eb-github-action/main
+        uses: gureuso/py-eb-github-action@main
         with:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
