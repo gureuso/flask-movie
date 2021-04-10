@@ -6,8 +6,6 @@ name: Python package
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -33,9 +31,9 @@ jobs:
         echo "{}" > config.json
     - name: Test
       env:
-        DB_HOST: ${{ sercets.DB_HOST }}
-        DB_USER_PASSWD: ${{ sercets.DB_USER_PASSWD }}
-        DB_NAME: ${{ secrest.DB_NAME }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
+        DB_NAME: ${{ secrets.DB_NAME }}
       run: |
         echo $DB_HOST
         python manage.py test
