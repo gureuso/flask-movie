@@ -39,12 +39,14 @@ jobs:
     - name: Deploy
       env:
         EB_ENV_NAME: Flaskmovie-env
+        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       run: |
         pip install awsebcli
         pip install awscli
         mkdir .aws
-        cat "[default]\naws_access_key_id=${{ secrets.AWS_ACCESS_KEY }}\naws_secret_access_key=${{ secrets.AWS_SECRET_KEY }}" > .aws/credentials
-        cat "[default]\nregion=ap-northeast-2\noutput=json" > .aws/config
+        echo "[default]\naws_access_key_id=${{ secrets.AWS_ACCESS_KEY }}\naws_secret_access_key=${{ secrets.AWS_SECRET_KEY }}" > .aws/credentials
+        echo "[default]\nregion=ap-northeast-2\noutput=json" > .aws/config
         eb init --region ap-northeast-2 --platform docker
         eb setenv DB_NAME=${{ secrets.DB_NAME }} DB_USER_PASSWD=${{ secrets.DB_USER_PASSWD }} DB_HOST=${{ secrets.DB_HOST }}
         eb deploy $EB_ENV_NAME
