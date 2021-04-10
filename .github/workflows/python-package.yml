@@ -35,5 +35,4 @@ jobs:
         DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
         DB_NAME: ${{ secrets.DB_NAME }}
       run: |
-        echo "$INPUT_DB_HOST"
         python manage.py test
