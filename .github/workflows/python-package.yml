@@ -31,9 +31,9 @@ jobs:
         echo "{}" > config.json
     - name: Test
       env:
-        DBHOST: ${{ secrets.DB_HOST }}
-        DBUSERPASSWD: ${{ secrets.DB_USER_PASSWD }}
-        DBNAME: ${{ secrets.DB_NAME }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_USER_PASSWD: ${{ secrets.DB_USER_PASSWD }}
+        DB_NAME: ${{ secrets.DB_NAME }}
       run: |
-        echo "$DBHOST"
+        echo "$INPUT_DB_HOST"
         python manage.py test
