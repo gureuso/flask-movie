@@ -38,7 +38,7 @@ jobs:
         python manage.py test
     - name: Deploy
       env:
-        EB_ENV_NAME: Flaskmovie-env
+        EB_ENV_NAME: "Flaskmovie-env"
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
         AWS_DEFAULT_REGION: "ap-northeast-2"
