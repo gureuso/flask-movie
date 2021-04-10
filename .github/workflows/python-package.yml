@@ -45,8 +45,8 @@ jobs:
         pip install awsebcli
         pip install awscli
         mkdir .aws
-        echo "[default]\naws_access_key_id=${{ secrets.AWS_ACCESS_KEY }}\naws_secret_access_key=${{ secrets.AWS_SECRET_KEY }}" > .aws/credentials
-        echo "[default]\nregion=ap-northeast-2\noutput=json" > .aws/config
+        echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY\naws_secret_access_key=$AWS_SECRET_KEY" > .aws/credentials
+        echo -e "[default]\nregion=ap-northeast-2\noutput=json" > .aws/config
         cat .aws/config
         cat .aws/credentials
         eb init --region ap-northeast-2 --platform docker
