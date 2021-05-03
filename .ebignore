@@ -17,9 +17,6 @@ Thumbs.db
 *.swp
 *.swo
 
-# flask
-!migrations/versions/.keep
-
 # git
 .git
 
