@@ -10,15 +10,15 @@ from apps.database.session import db
 app = Blueprint('users', __name__, url_prefix='/users')
 
 
-@app.route('/signin', methods=['GET', 'POST'])
-@already_signin
-def signin():
-    return ''
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 @already_signin
 def signup():
+    return ''
+
+
+@app.route('/signin', methods=['GET', 'POST'])
+@already_signin
+def signin():
     return ''
 
 
